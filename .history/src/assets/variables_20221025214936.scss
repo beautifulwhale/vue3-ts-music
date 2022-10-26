@@ -1,0 +1,25 @@
+:root {
+    --page-bg:#fff;
+    --card-bg:#F9FAFB; /* gray-50 */
+    --title-color:#111827;/* gray-900 */
+    --desc-color:#4B5563; /* gray-600 */
+  }
+
+  .theme-dark {
+    --page-bg:#111827; /* gray-900 */
+    --card-bg:#1F2937; /* gray-800 */
+    --title-color:#F3F4F6;/* gray-100 */
+    --desc-color:#E5E7EB; /* gray-200 */
+  }
+.page__bg{
+  background-color: var(--page-bg);
+}
+.post__card{
+  background-color: var(--card-bg);
+}
+.post__title{
+  color: var(--title-color);
+}
+.post__desc{
+  color: var(--desc-color) ;
+}

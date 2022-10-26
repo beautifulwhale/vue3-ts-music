@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  .theme-light {
+    --el-color-primary:#34d399,
+    --el-color-primary-light1:#34d399,

@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+  .theme-light {
+    --el-color-primary:#34d399,
+     
+  }
+
+  .theme-dark {
+    --color-base: theme('colors.gray.900');
+    --color-text-base: theme('colors.gray.100'); 
+    --color-off-base: theme('colors.gray.800'); 
+    --color-text-muted:theme('colors.gray.300'); 
+    --color-text-muted-hover: theme('colors.gray.200');
+    --color-primary: theme('colors.blue.500'); 
+    --color-secondary: theme('colors.blue.200'); 
+  }
+}
