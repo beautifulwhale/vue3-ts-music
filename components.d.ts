@@ -9,16 +9,21 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Aside: typeof import('./src/components/layout/Aside.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
+    ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
+    ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElFooter: typeof import('element-plus/es')['ElFooter']
     ElHeader: typeof import('element-plus/es')['ElHeader']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     Footer: typeof import('./src/components/layout/footer/footer.vue')['default']
     Header: typeof import('./src/components/layout/header/header.vue')['default']
     IconPark: typeof import('./src/components/common/IconPark.vue')['default']
     Menu: typeof import('./src/components/layout/menu/Menu.vue')['default']
+    Profile: typeof import('./src/components/layout/header/components/profile.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Search: typeof import('./src/components/layout/header/components/search.vue')['default']
   }
 }
