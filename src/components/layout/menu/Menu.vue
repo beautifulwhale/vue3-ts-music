@@ -2,7 +2,7 @@
     <div class="mt-1 pl-6 pr-6 space-y-6" v-for="(menuItem, index) in menuList" :key="index">
         <div class="text-xs mt-10">{{ menuItem.name }}</div>
         <div v-for="(item, index) in menuItem.menus" :key="index">
-            <div class="flex hover:bg-slate-100 p-1 pl-2 cursor-pointer text-sm rounded" @click="skipMenu(item)"
+            <div class="flex hover:bg-slate-200 p-1 pl-2 cursor-pointer text-sm rounded" @click="skipMenu(item)"
                 :class="{ 'active': currentKey === item.key }">
                 <IconParkVue class="mt-1" :icon="item.icon"></IconParkVue>
                 <div class="ml-1">{{ item.name }}</div>

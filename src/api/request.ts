@@ -5,11 +5,7 @@ import axios, { AxiosPromise } from "axios";
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from "element-plus";
 
-interface Result<T> {
-    code: number,
-    message: string,
-    data: T
-}
+
 
 class Request {
     instance: AxiosInstance
@@ -27,7 +23,6 @@ class Request {
 
         this.instance.interceptors.response.use((response: AxiosResponse) => {
             const { data } = response;
-            console.log('response', response);
             return data;
         }, (err: any) => {
             let message = '';
@@ -78,15 +73,15 @@ class Request {
     }
 
     // 定义方法
-    public request(config: AxiosRequestConfig): AxiosPromise<AxiosResponse> {
+    public request(config: AxiosRequestConfig): AxiosPromise {
         return this.instance.request(config);
     }
 
-    public get<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<AxiosResponse<Result<T>>> {
+    public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<Result<T>> {
         return this.instance.get(url, config);
     }
 
-    public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<AxiosResponse<Result<T>>> {
+    public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> {
         return this.instance.post(url, data, config);
     }
 
