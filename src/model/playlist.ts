@@ -8,3 +8,14 @@ export interface RecommendPlayList {
     playCount: number,
     picUrl: string,
 }
+export interface NewSongs {
+    code: number,
+    result: Song[]
+}
+export interface Song<T = any> {
+    id: number,
+    name: string,
+    picUrl: string,
+    song: T
+
+}
