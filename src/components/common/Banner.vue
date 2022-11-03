@@ -1,24 +1,33 @@
 <template>
-    <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in bannerList" :key="item">
-            <img :src="item" alt="">
-        </el-carousel-item>
-    </el-carousel>
+    <div class="banner">
+        <div v-for="item in bannerList.slice(0,4)" :key="item" class="pl-2 pr-2 imgList">
+            <img class="rounded-xl cursor-pointer" :src="item">
+        </div>
+    </div>
 </template>
 
 <script setup lang='ts'>
 interface Props {
     bannerList: string[]
 }
-const props = withDefaults(
+withDefaults(
     defineProps<Props>(),
     {
         bannerList: () => []
     }
 );
-console.log(props);
-
 </script>
 <style lang='scss' scoped>
+.banner {
+    @apply flex
+}
 
+.imgList img {
+    opacity: 1;
+  -webkit-transition: .3s ease-in-out;
+  transition: .3s ease-in-out;
+}
+.imgList:hover img {
+    opacity: .6;
+}
 </style>

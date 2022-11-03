@@ -7,7 +7,7 @@ import { ElMessage } from "element-plus";
 
 
 
-class Request {
+class myRequest {
     instance: AxiosInstance
     baseConfig: AxiosRequestConfig = { baseURL: '/api', timeout: 5000 }
     constructor(config: AxiosRequestConfig) {
@@ -26,7 +26,7 @@ class Request {
             return data;
         }, (err: any) => {
             let message = '';
-            switch (err.response.status) {
+            switch (err.response && err.response.status) {
                 case 400:
                     message = "请求错误(400)";
                     break;
@@ -62,7 +62,7 @@ class Request {
                     message = "HTTP版本不受支持(505)";
                     break;
                 default:
-                    message = `连接出错(${err.response.status})!`;
+                    message = `连接出错(${err.response && err.response.status})!`;
                     ElMessage({
                         type: 'error',
                         message: `${message},请检查网络连接`,
@@ -73,20 +73,30 @@ class Request {
     }
 
     // 定义方法
-    public request(config: AxiosRequestConfig): AxiosPromise {
-        return this.instance.request(config);
-    }
+    // public request(config: AxiosRequestConfig): AxiosPromise {
+    //     return this.instance.request(config);
+    // }
 
-    public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<Result<T>> {
-        return this.instance.get(url, config);
-    }
+    // public get<T = any>(url: string, config?: AxiosRequestConfig): Promise<Result<T>> {
+    //     return this.instance.get(url, config);
+    // }
 
-    public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> {
-        return this.instance.post(url, data, config);
-    }
+    // public post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<Result<T>> {
+    //     return this.instance.post(url, data, config);
+    // }
 
-    // put delete 同理...
+    request<T>(config: AxiosRequestConfig): Promise<T> {
+        return new Promise((resolve, reject) => {
+            this.instance
+                .request<any, T>(config)
+                .then((res) => {
+                    resolve(res)
+                })
+                .catch((err) => {
+                    reject(err)
+                })
+        })
+    }
 
 }
-
-export default new Request({})
+export default new myRequest({});

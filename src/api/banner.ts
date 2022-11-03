@@ -1,4 +1,4 @@
-import request from "./request";
+import myRequest from "./request";
 
 interface Banner {
     imageUrl: string
@@ -6,5 +6,8 @@ interface Banner {
 
 // banner
 export default function getBannerLists(type?: number): Promise<Result<any, Banner[]>> {
-    return request.get('/banner');
+    return myRequest.request({
+        url: '/banner',
+        params: type
+    })
 }
