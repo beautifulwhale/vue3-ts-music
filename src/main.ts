@@ -5,8 +5,8 @@ import "tailwindcss/tailwind.css"
 import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia'
-import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
+import Qrcode from './components/common/qrcode.vue';
 
 import registerIcon from './utils/registerIcon';
 import '@/utils/extends';
@@ -15,6 +15,7 @@ const app = createApp(App)
 const pinia = createPinia();
 app.use(router).use(pinia);
 
-registerIcon(app)
+registerIcon(app);
+app.component('qr-code', Qrcode);
 
 app.mount('#app')

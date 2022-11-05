@@ -40,7 +40,6 @@ const getNewSongs = async () => {
   const { code, result } = await useNewSongs(songLimit);
   if(code === 200) {
     newSongList.value = result;
-    console.log('songList==',result);
   }
 }
 

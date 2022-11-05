@@ -12,7 +12,7 @@
       <!-- 搜索框 -->
       <searchVue></searchVue>
     </div>
-    <div class="">
+    <div>
       <profileVue></profileVue>
     </div>
   </div>
