@@ -5,6 +5,8 @@ import "tailwindcss/tailwind.css"
 import App from './App.vue'
 import router from './router'
 import { createPinia } from 'pinia'
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css'
 
 import registerIcon from './utils/registerIcon';
 import '@/utils/extends';

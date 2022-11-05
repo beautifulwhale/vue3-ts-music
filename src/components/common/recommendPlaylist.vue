@@ -1,7 +1,7 @@
 <template>
     <Title title="你的专属歌单"></Title>
     <div class="playlist-layout">
-        <div v-for="item in playLists.sampleSize(20)" :key="item.id">
+        <div v-for="item in playLists.sampleSize(30)" :key="item.id">
             <playList :name="item.name" :picUrl="item.picUrl" :playCount="item.playCount"></playList>
             <div class="mt-2 text-xs text-main truncate">{{ item.name }}</div>
         </div>

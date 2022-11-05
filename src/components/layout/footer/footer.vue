@@ -1,12 +1,14 @@
 <template>
-  <div></div>
+  <!-- <div class="fixed bottom-0 h-7 bg-purple-200">
+    I am Footer...
+  </div> -->
+  <div>
+    I am Footer...
+  </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue'
-export default defineComponent({
-})
-
+<script setup lang='ts'>
 </script>
-<style lang='less' scoped>
+<style lang='scss' scoped>
+
 </style>

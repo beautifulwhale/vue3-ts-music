@@ -4,6 +4,7 @@
 import axios, { AxiosPromise } from "axios";
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from "element-plus";
+import NProgress from "nprogress";
 
 
 
@@ -16,6 +17,7 @@ class myRequest {
         // 拦截器
         this.instance.interceptors.request.use((config: AxiosRequestConfig) => {
             // ... token
+            NProgress.start();
             return config;
         }, (err: any) => {
             return Promise.reject(err);
@@ -23,6 +25,7 @@ class myRequest {
 
         this.instance.interceptors.response.use((response: AxiosResponse) => {
             const { data } = response;
+            NProgress.done();
             return data;
         }, (err: any) => {
             let message = '';
