@@ -12,13 +12,14 @@
 <script setup lang='ts'>
 import { FullScreen, OffScreen, Platte } from '@icon-park/vue-next';
 import screenfull from 'screenfull';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref, getCurrentInstance } from 'vue';
 import IconParkVue from '../../../common/IconPark.vue';
 import loginVue from '../../login/login.vue';
 
 const circleUrl = ref('');
 const isFullscreen = ref(true);
 const isLogin = ref(false);
+const mitter = getCurrentInstance()?.appContext.config.globalProperties.mitter;
 
 // 全屏
 const handleScreenfull = () => {
@@ -36,6 +37,15 @@ const openLogin = () => {
 const closeLogin = () => {
     isLogin.value = false;
 }
+
+onMounted(() => {
+    mitter.on('closeLoginDialog', () => {
+        isLogin.value = false;
+    });
+});
+onUnmounted(() => {
+    mitter.off('closeLoginDialog');
+})
 </script>
 <style lang='scss' scoped>
 

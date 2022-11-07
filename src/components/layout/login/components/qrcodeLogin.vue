@@ -11,13 +11,14 @@
 </template>
 
 <script setup lang='ts'>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch, getCurrentInstance } from 'vue';
 import { qrcodeKey, qrcodeCreate } from '../../../../api/login';
 import { useUserState } from '../../../../store/user';
 
 const key = ref('');
 const qrUrl = ref('');
 const store = useUserState();
+const mitter = getCurrentInstance()?.appContext.config.globalProperties.mitter;
 
 // 获取qrcode key
 const getQrcodeKey = async () => {
@@ -30,23 +31,27 @@ const getQrcodeKey = async () => {
 
 // 二维码生成
 const getQrcodeCreate = async (key: string) => {
-    console.log('key===>', key);
     const { data, code } = await qrcodeCreate(key);
     if (code === 200) {
         qrUrl.value = data.qrurl;
+        // 二维码登录
         store.qrcodeLogin(key);
     }
 };
 
-
-
+watch(() => store.codeMessage.code, (newCode) => {
+    if (newCode === 803) {
+        mitter.emit('closeLoginDialog');
+        getCurrentInstance()?.appContext.config.globalProperties.$toast('登录成功', 2000);
+    }
+})
 onMounted(() => {
     getQrcodeKey();
 })
 </script>
 <style lang='scss' scoped>
 .headers {
-    @apply text-center font-bold text-lg font-black
+    @apply text-center font-bold text-lg
 }
 
 .qrcode {
