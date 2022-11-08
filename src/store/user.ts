@@ -3,7 +3,6 @@ import { LStorage } from '../utils/storage';
 import checkLoginStatus from '../components/layout/login/hooks/checkLoginStatus';
 import { qrcodeCheck } from '../api/login';
 import { ProfileType } from '../model/user';
-import { ElMessage } from 'element-plus';
 
 export const useUserState = defineStore('user', {
     state: () => {
@@ -28,23 +27,26 @@ export const useUserState = defineStore('user', {
                 try {
                     const { code, message, cookie } = await qrcodeCheck(key);
                     if (code === 800) {
-                        // alert(message);
                         this.codeMessage.code = code;
                         this.codeMessage.message = message;
                         clearInterval(timer);
                     }
                     if (code === 803) {
-                        // alert(message);
                         this.codeMessage.code = code;
                         this.codeMessage.message = message;
                         clearInterval(timer);
-                        await checkLoginStatus(cookie);
+                        const { profile } = await checkLoginStatus(cookie);
                         LStorage.set('cookie', cookie);
+                        this.cookie = cookie;
+                        this.saveProfile(profile);
                     }
                 } catch (error: any) {
                     throw new Error(error);
                 }
             }, 3000)
+        },
+        saveProfile(profileMessage: ProfileType) {
+            this.profileInfo = profileMessage;
         }
     }
 })

@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang='ts'>
+import { ElMessage } from 'element-plus';
 import { onMounted, ref, watch, getCurrentInstance } from 'vue';
 import { qrcodeKey, qrcodeCreate } from '../../../../api/login';
 import { useUserState } from '../../../../store/user';
@@ -25,6 +26,8 @@ const getQrcodeKey = async () => {
     const { data, code } = await qrcodeKey();
     if (code === 200) {
         key.value = data.unikey;
+        console.log(key.value, 'key');
+
         getQrcodeCreate(key.value);
     }
 };
@@ -40,9 +43,14 @@ const getQrcodeCreate = async (key: string) => {
 };
 
 watch(() => store.codeMessage.code, (newCode) => {
+    if (newCode === 801) {
+        ElMessage({
+            type: 'success',
+            message: store.codeMessage.message
+        });
+    }
     if (newCode === 803) {
         mitter.emit('closeLoginDialog');
-        getCurrentInstance()?.appContext.config.globalProperties.$toast('登录成功', 2000);
     }
 })
 onMounted(() => {
