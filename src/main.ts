@@ -11,6 +11,9 @@ import mitt, { Emitter } from 'mitt';
 
 
 import registerIcon from './utils/registerIcon';
+
+// 引入注册toast
+import './components/common/toast/index';
 import '@/utils/extends';
 import "./directives/index";
 const app = createApp(App)

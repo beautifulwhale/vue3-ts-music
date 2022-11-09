@@ -41,6 +41,6 @@ declare module '@vue/runtime-core' {
     Search: typeof import('./src/components/layout/header/components/search.vue')['default']
     Titile: typeof import('./src/components/common/titile.vue')['default']
     Title: typeof import('./src/components/common/title.vue')['default']
-    Toast: typeof import('./src/components/common/toast.vue')['default']
+    Toast: typeof import('./src/components/common/toast/toast.vue')['default']
   }
 }

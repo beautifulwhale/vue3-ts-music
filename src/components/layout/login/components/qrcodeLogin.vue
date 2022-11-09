@@ -15,7 +15,7 @@ import { ElMessage } from 'element-plus';
 import { onMounted, ref, watch, getCurrentInstance } from 'vue';
 import { qrcodeKey, qrcodeCreate } from '../../../../api/login';
 import { useUserState } from '../../../../store/user';
-
+import toast from '../../../common/toast';
 const key = ref('');
 const qrUrl = ref('');
 const store = useUserState();
@@ -51,6 +51,7 @@ watch(() => store.codeMessage.code, (newCode) => {
     }
     if (newCode === 803) {
         mitter.emit('closeLoginDialog');
+        toast({ title: '登录成功～' });
     }
 })
 onMounted(() => {
