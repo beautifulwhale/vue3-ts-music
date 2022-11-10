@@ -1,11 +1,11 @@
 <template>
     <div class="h-14 flex items-center">
-        <template v-if="isLogin === false">
+        <template v-if="isLogin">
             <el-avatar class="cursor-pointer" size="small" :src="circleUrl" @click="openLogin" />
             <span class="ml-2 cursor-pointer text-sm" @click="openLogin">点击登录</span>
         </template>
         <template v-else>
-            <el-avatar class="cursor-pointer" size="small" :src="circleUrl" />
+            <el-avatar class="cursor-pointer" size="small" :src="avatarUrl" />
             <span class="ml-2 cursor-pointer text-sm">{{ nickName }}</span>
         </template>
         <IconParkVue class="ml-3 cursor-pointer" :icon="Platte"></IconParkVue>
@@ -22,9 +22,11 @@ import { onMounted, onUnmounted, ref, getCurrentInstance, watch } from 'vue';
 import { useUserState } from '../../../../store/user';
 import IconParkVue from '../../../common/IconPark.vue';
 import loginVue from '../../login/login.vue';
+import { LStorage } from '../../../../utils/storage';
 
 const circleUrl = ref('');
 const nickName = ref('');
+const avatarUrl = ref('');
 const isFullscreen = ref(true);
 const isLogin = ref(false);
 const mitter = getCurrentInstance()?.appContext.config.globalProperties.mitter;
@@ -47,17 +49,12 @@ const closeLogin = () => {
     isLogin.value = false;
 };
 
-//监视是否登录
-watch(() => store.profileInfo, () => {
-    console.log(store.profileInfo);
-    circleUrl.value = store.profileInfo.avatarUrl;
-    nickName.value = store.profileInfo.nickname;
-})
-
 onMounted(() => {
     mitter.on('closeLoginDialog', () => {
         isLogin.value = false;
     });
+    avatarUrl.value = LStorage.get('avatarUrl') || '';
+    nickName.value = LStorage.get('nickname') || '';
 });
 onUnmounted(() => {
     mitter.off('closeLoginDialog');

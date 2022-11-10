@@ -11,3 +11,8 @@ export interface ProfileType {
     userType: 0,
     vipType: number
 }
+
+export interface CodeMessage {
+    code: number,
+    message: string
+}

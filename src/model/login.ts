@@ -23,9 +23,11 @@ export interface QrcodeCheck {
 }
 
 export interface LoginStatus<T, F = any> {
-    code: number,
-    account: T,
-    profile: F
+    data: {
+        code: number,
+        account: T,
+        profile: F
+    }
 }
 
 export interface AccountType {

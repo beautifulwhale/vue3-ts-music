@@ -29,6 +29,7 @@ import IconPark from '@/components/common/IconPark.vue';
 import { Iphone, TwoDimensionalCode } from '@icon-park/vue-next';
 import phoneLogin from '@/components/layout/login/components/phoneLogin.vue';
 import qrcodeLogin from '@/components/layout/login/components/qrcodeLogin.vue';
+import { useUserState } from '../../../store/user';
 
 
 type LoginType = 'iphone' | 'qrcode';
@@ -52,7 +53,8 @@ const closeDailog = () => {
 // 改变登录方式
 const changeLoginType = () => {
     loginType.value = loginType.value === 'iphone' ? 'qrcode' : 'iphone';
-}
+};
+
 </script>
 <style lang='scss' scoped>
 :deep(.el-dialog__header) {
