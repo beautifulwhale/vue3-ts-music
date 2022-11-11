@@ -37,3 +37,8 @@ export interface AccountType {
     status: number,
     vipType: number
 }
+
+export interface SendQrcode {
+    data: boolean,
+    code: number
+}

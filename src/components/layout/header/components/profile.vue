@@ -1,6 +1,6 @@
 <template>
     <div class="h-14 flex items-center">
-        <template v-if="isLogin">
+        <template v-if="!isLogin">
             <el-avatar class="cursor-pointer" size="small" :src="circleUrl" @click="openLogin" />
             <span class="ml-2 cursor-pointer text-sm" @click="openLogin">点击登录</span>
         </template>

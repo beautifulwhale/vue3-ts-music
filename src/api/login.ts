@@ -1,5 +1,5 @@
 import request from "./request";
-import { QrcodeKey, QrcodeKeyData, QrcodeCreate, QrcodeCheck, LoginStatus, AccountType } from '../model/login';
+import { QrcodeKey, QrcodeKeyData, QrcodeCreate, QrcodeCheck, LoginStatus, AccountType, SendQrcode } from '../model/login';
 import { ProfileType } from "../model/user";
 /**
  * 
@@ -38,5 +38,21 @@ export function loginStatus(cookie: string = '') {
         data: {
             cookie
         }
+    })
+}
+
+// 发送验证码
+export function getPhoneQrcode(phone: string) {
+    return request.request<SendQrcode>({
+        url: `/captcha/sent?phone=${phone}`,
+        method: 'get'
+    })
+}
+
+// 验证 验证码
+export function verifyPhoneQrcode(phone: string, captcha: string) {
+    return request.request<SendQrcode>({
+        url: `/captcha/verify?phone=${phone}&captcha=${captcha}`,
+        method: 'get'
     })
 }
