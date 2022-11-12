@@ -1,4 +1,3 @@
-
 export interface ProfileType {
     userId: number,
     avatarUrl: string,

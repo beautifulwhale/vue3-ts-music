@@ -40,5 +40,10 @@ export interface AccountType {
 
 export interface SendQrcode {
     data: boolean,
+    code: number,
+    message?: string
+}
+
+export interface Logout {
     code: number
 }

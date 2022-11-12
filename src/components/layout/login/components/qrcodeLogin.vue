@@ -18,6 +18,7 @@ import { useUserState } from '../../../../store/user';
 import toast from '../../../common/toast';
 import { LStorage } from '../../../../utils/storage';
 import { ProfileType } from '../../../../model/user';
+import saveProfile from '../hooks/handleProfile';
 
 const key = ref('');
 const qrUrl = ref('');
@@ -76,11 +77,7 @@ const qrcodeLogin = async (key: string) => {
                 store.changeCodeMessage(codeMessage);
                 clearInterval(timer);
                 const { data: { profile } } = await loginStatus(cookie);
-                LStorage.set('cookie', cookie);
-                LStorage.set('avatarUrl', profile.avatarUrl);
-                LStorage.set('nickname', profile.nickname);
-                store.saveCookie(cookie);
-                store.saveProfile(profile);
+                saveProfile(true, cookie, profile);
             }
         } catch (error: any) {
             throw new Error(error);

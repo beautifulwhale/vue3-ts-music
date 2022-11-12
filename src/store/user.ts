@@ -23,9 +23,8 @@ export const useUserState = defineStore('user', {
             this.codeMessage.code = code;
             this.codeMessage.message = message;
         },
-        saveProfile(profileMessage: ProfileType) {
-            console.log('profileMessage==>', profileMessage);
-            this.profileInfo = profileMessage;
+        saveProfile(profileMessage: ProfileType | {}) {
+            this.profileInfo = profileMessage as ProfileType;
         }
     }
 })

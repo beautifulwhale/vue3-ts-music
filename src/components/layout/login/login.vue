@@ -29,7 +29,6 @@ import IconPark from '@/components/common/IconPark.vue';
 import { Iphone, TwoDimensionalCode } from '@icon-park/vue-next';
 import phoneLogin from '@/components/layout/login/components/phoneLogin.vue';
 import qrcodeLogin from '@/components/layout/login/components/qrcodeLogin.vue';
-import { useUserState } from '../../../store/user';
 
 
 type LoginType = 'iphone' | 'qrcode';
