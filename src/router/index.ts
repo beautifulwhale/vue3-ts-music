@@ -1,7 +1,7 @@
-import { createRouter, createMemoryHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const router = createRouter({
-    history: createMemoryHistory(),
+    history: createWebHashHistory(),
     routes: [
         {
             path: '/',
@@ -49,6 +49,15 @@ const router = createRouter({
                         menu: 'dj'
                     }
                 },
+                {
+                    path: '/playlist/:id',
+                    name: 'playlist',
+                    component: () => import('@/pages/playlist/playlist.vue'),
+                    meta: {
+                        title: '歌单详情',
+                        menu: 'playlist'
+                    }
+                }
             ]
         },
     ]

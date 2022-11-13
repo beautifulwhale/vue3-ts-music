@@ -1,5 +1,5 @@
 <template>
-    <div class="cover-play-image hover:-translate-y-1">
+    <div class="cover-play-image hover:-translate-y-1" @click="handlePlaylistDetail(id)">
         <el-image :src="picUrl" :alt="name" class="w-full bg-gray-50 object-cover"></el-image>
         <div class="mask flex justify-center items-center">
             <IconPark :icon="PlayOne" theme="filled"
@@ -17,13 +17,21 @@
 import IconPark from '@/components/common/IconPark.vue';
 import { useNumberFormat } from "../../utils/useNumber";
 import { PlayOne, Play } from '@icon-park/vue-next';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 defineProps<{
+    id: number,
     name: string,
     playCount: number,
     picUrl: string
     onPlay?: () => void
 }>()
 
+const handlePlaylistDetail = (id: number) => {
+    router.push({ name: 'playlist', params: { id } })
+}
 </script>
 <style lang='scss' scoped>
 .cover-play-image {

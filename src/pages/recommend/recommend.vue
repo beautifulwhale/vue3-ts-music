@@ -31,14 +31,14 @@ const getBannerList = async () => {
 const getMyPlayList = async () => {
   const { code, result } = await useMyPlayList(limit);
   if (code === 200) {
-    myPlayList.value = result;
+    myPlayList.value = result as RecommendPlayList[];
   }
 }
 
 // 获取推荐新音乐
 const getNewSongs = async () => {
   const { code, result } = await useNewSongs(songLimit);
-  if(code === 200) {
+  if (code === 200) {
     newSongList.value = result;
   }
 }
