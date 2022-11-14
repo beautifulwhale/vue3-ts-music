@@ -18,9 +18,7 @@ let isRouterActive = ref(true);
 const reload = () => {
   isRouterActive.value = false;
   nextTick(() => {
-    isRouterActive.value = true;
-    console.log('login=====>');
-    
+    isRouterActive.value = true;    
   })
 }
 

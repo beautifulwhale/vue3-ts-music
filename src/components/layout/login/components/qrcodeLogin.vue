@@ -42,8 +42,6 @@ const getQrcodeKey = async () => {
     const { data, code } = await qrcodeKey();
     if (code === 200) {
         key.value = data.unikey;
-        console.log(key.value, 'key');
-
         getQrcodeCreate(key.value);
     }
 };

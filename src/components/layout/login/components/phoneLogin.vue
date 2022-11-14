@@ -97,13 +97,17 @@ const phoneLogin = () => {
                     const cookie = LStorage.get('cookie');
                     const { data: { profile, code } } = await loginStatus(cookie);
                     if (code === 200) {
-                        saveProfile(true, cookie, profile);
+                        if (cookie) {
+                            saveProfile(true, cookie, profile);
+                        }
                         mitter.emit('closeLoginDialog');
                         toast({ title: '登录成功～' });
                         clearInterval(timer);
                     }
                 }
             } catch (error) {
+                console.log('error', error);
+
                 qrcodeMessage.value = '验证码错误！';
                 loginFormRef.value?.validateField('qrcode');
             }

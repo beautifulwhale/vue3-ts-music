@@ -21,13 +21,17 @@ export interface Song<T = any> {
 }
 
 export interface PlayListDetail {
-    id: number,
+    id: number | null,
     name: string,
     coverImgUrl: string,
-    createTime: number,
+    createTime: number | null,
     description: string,
     tags: string[],
-    tracks: Track[]
+    tracks: Track[],
+    creator: {
+        nickname: string,
+        avatarUrl: string
+    }
 }
 
 export interface Track {

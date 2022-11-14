@@ -37,17 +37,13 @@ import loginVue from '../../login/login.vue';
 import { LStorage } from '../../../../utils/storage';
 import { logout } from '../../../../api/login';
 import handleProfile from '../../login/hooks/handleProfile';
-import { useUserState } from '../../../../store/user';
-import { ElAvatar, ElDropdown, ElDropdownMenu } from 'element-plus';
-import { useRouter } from 'vue-router';
+import { ElDropdown, ElDropdownMenu } from 'element-plus';
 
 const circleUrl = ref('');
 const nickName = ref('');
 const avatarUrl = ref('');
 const isFullscreen = ref(true);
 const isLogin = ref(false);
-const store = useUserState();
-const router = useRouter();
 
 // 引入路由刷新
 interface Reload {
