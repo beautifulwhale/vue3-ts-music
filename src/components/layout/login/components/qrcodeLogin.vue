@@ -73,11 +73,11 @@ const qrcodeLogin = async (key: string) => {
                 clearInterval(timer);
             }
             if (code === 803) {
+                const { data: { profile } } = await loginStatus(cookie);
+                saveProfile(true, cookie, profile);
                 const codeMessage = { code, message };
                 store.changeCodeMessage(codeMessage);
                 clearInterval(timer);
-                const { data: { profile } } = await loginStatus(cookie);
-                saveProfile(true, cookie, profile);
             }
         } catch (error: any) {
             throw new Error(error);

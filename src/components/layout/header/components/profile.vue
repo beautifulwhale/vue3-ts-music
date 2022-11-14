@@ -1,11 +1,13 @@
 <template>
     <div class="h-14 flex items-center">
         <template v-if="!isCookie || loginState">
-            <el-avatar class="cursor-pointer" size="small" :src="circleUrl" @click="openLogin" />
+            <!-- <el-avatar class="cursor-pointer" size="small" :src="circleUrl" @click="openLogin" /> -->
+            <div class="w-5 h-5 bg-purple-200 rounded-full cursor-pointer" @click="openLogin">
+                <img :src="circleUrl" />
+            </div>
             <span class="ml-2 cursor-pointer text-sm" @click="openLogin">点击登录</span>
         </template>
         <template v-else>
-            {{ 123 }}
             <el-dropdown>
                 <!-- <el-avatar class="cursor-pointer" size="small" :src="avatarUrl" /> -->
                 <div>
@@ -92,10 +94,6 @@ onMounted(() => {
         nextTick(() => {
             loginState.value = true;
             reloadObj.reload();
-            console.log('storage', LStorage.get('avatarUrl'));
-            console.log('local===>', avatarUrl.value);
-            console.log('store==>', store.profileInfo.avatarUrl);
-
         })
     });
     avatarUrl.value = LStorage.get('avatarUrl') || '';
