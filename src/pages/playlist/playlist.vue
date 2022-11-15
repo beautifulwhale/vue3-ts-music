@@ -1,21 +1,19 @@
 <template>
-    <playlistHeader :coverImgUrl="playlistDetail.coverImgUrl" :name="playlistDetail.name" :tags="playlistDetail.tags"
-        :avatarUrl="playlistDetail.creator.avatarUrl" :nickname="playlistDetail.creator.nickname"
-        :description="playlistDetail.description">
+    <playlistHeader :playlistInfo="playlistDetail">
     </playlistHeader>
 </template>
 
 <script setup lang='ts'>
-import { onMounted, reactive, toRefs } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { getplaylist } from '../../api/playlist';
-import { PlayListDetail, Track } from '../../model/playlist';
+import { PlayListDetail ,Track} from '../../model/playlist';
 import playlistHeader from '@/pages/playlist/components/playlistHeader.vue';
 
 const route = useRoute();
 const playlistId = route.params.id;
 
-let playlistDetail: PlayListDetail = reactive({
+let playlistDetail = ref<PlayListDetail>({
     id: null,
     name: '',
     coverImgUrl: '',
@@ -27,14 +25,15 @@ let playlistDetail: PlayListDetail = reactive({
     },
     tags: [] as string[],
     tracks: [] as Track[]
-})
+});
 
 const getPlaylistDetail = async () => {
     const { code, playlist } = await getplaylist(playlistId as string);
     if (code === 200) {
-        playlistDetail = Object.assign(playlistDetail, playlist);
+        playlistDetail.value = playlist as PlayListDetail;
     }
 };
+
 
 onMounted(() => {
     getPlaylistDetail();
