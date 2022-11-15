@@ -1,6 +1,7 @@
 <template>
     <playlistHeader :playlistInfo="playlistDetail">
     </playlistHeader>
+    
 </template>
 
 <script setup lang='ts'>
