@@ -1,7 +1,7 @@
 <template>
     <playlistHeader :playlistInfo="playlistDetail">
     </playlistHeader>
-    
+    <playlistTable :songList="playlistDetail.tracks"></playlistTable>
 </template>
 
 <script setup lang='ts'>
@@ -10,6 +10,7 @@ import { useRoute } from 'vue-router';
 import { getplaylist } from '../../api/playlist';
 import { PlayListDetail ,Track} from '../../model/playlist';
 import playlistHeader from '@/pages/playlist/components/playlistHeader.vue';
+import playlistTable from '@/pages/playlist/components/playlistTable.vue';
 
 const route = useRoute();
 const playlistId = route.params.id;
