@@ -28,12 +28,16 @@ export interface PlayListDetail {
     description: string,
     tags: string[],
     tracks: Track[],
+    trackIds: TrackIds[],
     creator: {
         nickname: string,
         avatarUrl: string
     }
 }
 
+export interface TrackIds {
+    id: number
+}
 export interface Track {
     name: string,
     id: number,
@@ -46,7 +50,7 @@ export interface Track {
     dt: string
 }
 
-interface Ar {
+export interface Ar {
     id: number,
     name: string
 }

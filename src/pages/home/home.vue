@@ -15,7 +15,7 @@
                         <RouterView></RouterView>
                     </el-scrollbar>
                 </el-main>
-                <el-footer class="fixed bottom-0 bg-cyan-300 opacity-90 w-full">
+                <el-footer class="fixed bottom-0 w-full">
                     <footerVue></footerVue>
                 </el-footer>
             </el-container>

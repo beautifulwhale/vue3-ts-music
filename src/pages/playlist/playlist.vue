@@ -1,14 +1,14 @@
 <template>
     <playlistHeader :playlistInfo="playlistDetail">
     </playlistHeader>
-    <playlistTable :songList="playlistDetail.tracks"></playlistTable>
+    <playlistTable :songList="playlistDetail.tracks" :trackIdList="playlistDetail.trackIds"></playlistTable>
 </template>
 
 <script setup lang='ts'>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { getplaylist } from '../../api/playlist';
-import { PlayListDetail ,Track} from '../../model/playlist';
+import { PlayListDetail, Track, TrackIds } from '../../model/playlist';
 import playlistHeader from '@/pages/playlist/components/playlistHeader.vue';
 import playlistTable from '@/pages/playlist/components/playlistTable.vue';
 
@@ -26,7 +26,8 @@ let playlistDetail = ref<PlayListDetail>({
         avatarUrl: ''
     },
     tags: [] as string[],
-    tracks: [] as Track[]
+    tracks: [] as Track[],
+    trackIds: [] as TrackIds[]
 });
 
 const getPlaylistDetail = async () => {

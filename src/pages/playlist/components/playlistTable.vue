@@ -10,7 +10,7 @@
                                     <span>{{ row.name }}</span>
                                     <span class="showicon">
                                         <span class="flex items-center">
-                                            <IconPark :icon="PlayOne" :size="20"></IconPark>
+                                            <IconPark :icon="PlayOne" :size="20" @click="playSong(row)"></IconPark>
                                             <IconPark class="ml-2" :icon="Add"></IconPark>
                                             <IconPark class="ml-2" :icon="DownTwo"></IconPark>
                                             <IconPark class="ml-2" :icon="MoreTwo"></IconPark>
@@ -45,22 +45,31 @@
 </template>
 
 <script setup lang='ts'>
-import { ref, computed } from 'vue';
-import { Track } from '../../../model/playlist';
+import { ref, computed, getCurrentInstance } from 'vue';
+import { Track, TrackIds } from '../../../model/playlist';
 import formatDurtion from '../../../utils/formatDurtion';
 import IconPark from '@/components/common/IconPark.vue';
 import { Add, DownTwo, MoreTwo, PlayOne } from '@icon-park/vue-next';
 
+const mitter = getCurrentInstance()?.appContext.config.globalProperties.mitter;
+
 const props = defineProps<{
-    songList: Track[]
+    songList: Track[],
+    trackIdList: TrackIds[]
 }>()
 type TabsType = 'songlist' | 'comments';
 const activeName = ref<TabsType>('songlist');
 
 const songLabel = computed(() => {
     return `歌曲(${props.songList.length})`
-})
+});
 
+
+
+const playSong = (row: any) => {
+    console.log('props.trackIdList', props.trackIdList);
+    mitter.emit('playSong', { id: row.id, songIdList: props.trackIdList });
+}
 </script>
 <style lang='scss' scoped>
 .songs-table {
