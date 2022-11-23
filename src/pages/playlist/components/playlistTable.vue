@@ -3,7 +3,7 @@
         <el-tabs v-model="activeName">
             <el-tab-pane :label="songLabel" name="songlist">
                 <div class="songs-table">
-                    <el-table :data="songList" style="width: 100%">
+                    <el-table :data="songList" style="width: 100%" @row-click="handleChangeSong">
                         <el-table-column fixed prop="name" label="歌曲" show-overflow-tooltip>
                             <template #default="{ row }">
                                 <div class="flex justify-between">
@@ -64,7 +64,9 @@ const songLabel = computed(() => {
     return `歌曲(${props.songList.length})`
 });
 
-
+const handleChangeSong = (row:any)=> {
+  mitter.emit('playSong', { id: row.id, songIdList: props.trackIdList });
+}
 
 const playSong = (row: any) => {
     mitter.emit('playSong', { id: row.id, songIdList: props.trackIdList });

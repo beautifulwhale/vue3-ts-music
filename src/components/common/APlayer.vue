@@ -4,7 +4,7 @@
 <template>
     <div class="player-audio" ref="playerRef"></div>
 </template>
-  
+
 <script lang="ts" setup>
 import { getSongDetail, getLyric, songsUrl } from '../../api/song';
 import { Song } from '../../model/song';
@@ -20,6 +20,9 @@ const audioLists = ref<Audio[]>([]);
 
 const urlList = ref<any[]>([]);
 const songLyric = ref('');
+
+// 首次播放坐标
+let initialIndex = ref(0);
 let instance: APlayer;
 
 // APlayer歌曲信息
@@ -136,8 +139,6 @@ const props = defineProps({
 });
 
 const createInstance = (audioLists: Audio[]) => {
-    console.log('audioLists=====>', audioLists);
-
     instance = new APlayer({
         container: playerRef.value,
         fixed: props.fixed,
@@ -155,6 +156,7 @@ const createInstance = (audioLists: Audio[]) => {
         storageName: props.storageName,
         audio: audioLists
     });
+    instance.list.switch(initialIndex.value);
 }
 
 // 处理audio列表
@@ -187,6 +189,7 @@ const getSongLyric = async (id: number) => {
     const { code, lrc } = await getLyric(id);
     if (code === 200) {
         songLyric.value = lrc?.lyric;
+      console.log('songLyric.value',songLyric.value)
     }
 }
 
@@ -194,6 +197,10 @@ const getSongLyric = async (id: number) => {
 watch(() => props.songId, (newVal) => {
     if (newVal) {
         getSongLyric(newVal);
+      console.log('newVal',newVal);
+      console.log('audioList.value',audioList.value);
+        const index = audioList.value.findIndex(item => item.id === newVal);
+        instance.list.switch(index);
     }
 })
 watch(() => props.songIdListStr, async (newVal) => {
@@ -201,7 +208,10 @@ watch(() => props.songIdListStr, async (newVal) => {
         const { code, songs } = await getSongDetail(newVal);
         if (code === 200) {
             audioList.value = songs;
+            initialIndex.value = audioList.value.findIndex(item => item.id === props.songId);
             await handleAudioList(audioList.value);
+
+          console.log('audioList.value====>',audioList.value)
             createInstance(audioLists.value);
         }
     }

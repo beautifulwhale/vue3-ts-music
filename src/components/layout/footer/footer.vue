@@ -21,7 +21,7 @@ onMounted(() => {
   mitter.on('playSong', (playSongInfo: PlaySongInfo) => {
     const { id, songIdList } = playSongInfo;
     songId.value = id;
-    songIdListStr.value = songIdList.map(item => item.id).join(',');    
+    songIdListStr.value = songIdList.map(item => item.id).join(',');
   })
 });
 
