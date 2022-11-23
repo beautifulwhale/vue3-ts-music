@@ -2,17 +2,24 @@
  * @Description: APlayer组件化
 -->
 <template>
-    <div ref="playerRef"></div>
+    <div class="player-audio" ref="playerRef"></div>
 </template>
   
 <script lang="ts" setup>
-import { getSongDetail, getLyric } from '../../api/song';
+import { getSongDetail, getLyric, songsUrl } from '../../api/song';
+import { Song } from '../../model/song';
 import 'APlayer/dist/APlayer.min.css';
 import APlayer from 'APlayer';
 import type { PropType } from '@vue/runtime-core';
-import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
-const playerRef = ref()
+const playerRef = ref();
+const audioList = ref<Song[]>([]);
+
+const audioLists = ref<Audio[]>([]);
+
+const urlList = ref<any[]>([]);
+const songLyric = ref('');
 let instance: APlayer;
 
 // APlayer歌曲信息
@@ -26,9 +33,9 @@ class Audio {
     // 音频封面
     cover: String;
     // 歌词
-    lrc: String;
+    lrc?: String;
 
-    constructor(artist: String, name: String, url: String, cover: String, lrc: String) {
+    constructor(artist: String, name: String, url: String, cover: String, lrc?: String) {
         this.artist = artist;
         this.name = name;
         this.url = url;
@@ -43,6 +50,11 @@ const props = defineProps({
         type: String as PropType<string>,
         default: ''
     },
+    // 当前歌曲id
+    songId: {
+        type: Number as PropType<number>,
+        default: 0
+    },
     // 开启吸底模式
     fixed: {
         type: Boolean as PropType<boolean>,
@@ -51,12 +63,12 @@ const props = defineProps({
     // 开启迷你模式
     mini: {
         type: Boolean as PropType<boolean>,
-        default: true
+        default: false
     },
     // 音频自动播放
     autoplay: {
         type: Boolean as PropType<boolean>,
-        default: false
+        default: true
     },
     // 主题色
     theme: {
@@ -96,11 +108,6 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'playlist'
     },
-    // 歌的id
-    songId: {
-        type: Number as PropType<number>,
-        default: 0
-    },
     // 互斥，阻止多个播放器同时播放，当前播放器播放时暂停其他播放器
     mutex: {
         type: Boolean as PropType<boolean>,
@@ -109,7 +116,7 @@ const props = defineProps({
     // 传递歌词方式
     lrcType: {
         type: Number as PropType<number>,
-        default: 3
+        default: 1
     },
     // 列表是否默认折叠
     listFolded: {
@@ -126,41 +133,104 @@ const props = defineProps({
         type: String as PropType<string>,
         default: 'aplayer-setting'
     }
+});
+
+const createInstance = (audioLists: Audio[]) => {
+    console.log('audioLists=====>', audioLists);
+
+    instance = new APlayer({
+        container: playerRef.value,
+        fixed: props.fixed,
+        mini: props.mini,
+        autoplay: props.autoplay,
+        theme: props.theme,
+        loop: props.loop,
+        order: props.order,
+        preload: props.preload,
+        volume: props.volume,
+        mutex: props.mutex,
+        lrcType: props.lrcType,
+        listFolded: props.listFolded,
+        listMaxHeight: props.listMaxHeight,
+        storageName: props.storageName,
+        audio: audioLists
+    });
+}
+
+// 处理audio列表
+const handleAudioList = async (songs: Song[]) => {
+    const idList = songs.map(one => one.id);
+    await getSongsUrlList(idList);
+    getSongLyric(props.songId);
+    audioLists.value = songs.map(item => {
+        const currentSong = urlList.value.find(one => item.id === one.id);
+        return new Audio(item.ar[0].name, item.name, currentSong.url, item.al.picUrl, songLyric.value);
+    });
+};
+
+// 获取歌曲url
+const getSongsUrlList = async (idList: number[]) => {
+    const idListStr = idList.join(',');
+    const { code, data } = await songsUrl(idListStr);
+    if (code === 200) {
+        urlList.value = data.map(item => {
+            return {
+                id: item.id,
+                url: item.url
+            }
+        });
+    }
+};
+
+// 获取歌曲歌词
+const getSongLyric = async (id: number) => {
+    const { code, lrc } = await getLyric(id);
+    if (code === 200) {
+        songLyric.value = lrc?.lyric;
+    }
+}
+
+// 监视songId 获取新歌词
+watch(() => props.songId, (newVal) => {
+    if (newVal) {
+        getSongLyric(newVal);
+    }
 })
+watch(() => props.songIdListStr, async (newVal) => {
+    if (newVal) {
+        const { code, songs } = await getSongDetail(newVal);
+        if (code === 200) {
+            audioList.value = songs;
+            await handleAudioList(audioList.value);
+            createInstance(audioLists.value);
+        }
+    }
+});
 
 // 初始化
 onMounted(() => {
-    nextTick(async () => {
-        // http.player.getSongSheet(props.songServer, props.songType, props.songId)
-        //     .then(res => {
-        //         let audioList = res.data.map(value => new Audio(value.author, value.title, value.url, value.pic, value.lrc));
-        //     });
-        if (props.songIdListStr) {
-            const res = await getSongDetail(props.songIdListStr);
-            console.log('res===>', res);
-        }
-        let audioList: any[] = [];
-        instance = new APlayer({
-            container: playerRef.value,
-            fixed: props.fixed,
-            mini: props.mini,
-            autoplay: props.autoplay,
-            theme: props.theme,
-            loop: props.loop,
-            order: props.order,
-            preload: props.preload,
-            volume: props.volume,
-            mutex: props.mutex,
-            lrcType: props.lrcType,
-            listFolded: props.listFolded,
-            listMaxHeight: props.listMaxHeight,
-            storageName: props.storageName,
-            audio: audioList
-        });
+    nextTick(() => {
+        createInstance([]);
     })
 })
 // 销毁
 onBeforeUnmount(() => {
-    // instance.destroy()
+    instance.destroy()
 })
 </script>
+
+<style lang="scss" scoped>
+.player-audio {
+    :deep(.player) {
+        left: 200px !important;
+    }
+    :deep(.aplayer-body) {
+        @apply w-full
+    }
+
+    :deep(.aplayer-info) {
+        display: block !important;
+    }
+}
+
+</style>

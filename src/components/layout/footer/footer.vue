@@ -1,5 +1,5 @@
 <template>
-  <APlayerVue :songIdListStr="songIdListStr"></APlayerVue>
+  <APlayerVue :songIdListStr="songIdListStr" :songId="songId"></APlayerVue>
 </template>
 
 <script setup lang='ts'>
@@ -11,10 +11,7 @@ const mitter = getCurrentInstance()?.appContext.config.globalProperties.mitter;
 const songId = ref(0);
 const songIdListStr = ref('');
 
-watch(() => songIdListStr, (newVal) => {
-  console.log('newVal', newVal);
 
-})
 
 type PlaySongInfo = {
   id: number,
@@ -24,7 +21,7 @@ onMounted(() => {
   mitter.on('playSong', (playSongInfo: PlaySongInfo) => {
     const { id, songIdList } = playSongInfo;
     songId.value = id;
-    songIdListStr.value = songIdList.map(item => item.id).join(',');
+    songIdListStr.value = songIdList.map(item => item.id).join(',');    
   })
 });
 

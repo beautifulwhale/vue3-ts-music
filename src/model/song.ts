@@ -8,6 +8,11 @@ export interface SongDetail {
     artists: Artists[]
 }
 
+export interface SongRes {
+    code: number,
+    songs: Song[]
+}
+
 export interface Song {
     name: string,
     id: number,
@@ -18,7 +23,17 @@ export interface Song {
     dt: number
 }
 
+export interface SongUrl {
+    code: number,
+    data: Url[]
+}
+
+interface Url {
+    id: number
+    url: string
+}
 export interface Lyric {
+    code: number,
     lrc: {
         version: number,
         lyric: string

@@ -67,7 +67,6 @@ const songLabel = computed(() => {
 
 
 const playSong = (row: any) => {
-    console.log('props.trackIdList', props.trackIdList);
     mitter.emit('playSong', { id: row.id, songIdList: props.trackIdList });
 }
 </script>
