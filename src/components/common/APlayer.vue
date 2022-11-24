@@ -163,12 +163,22 @@ const createInstance = (audioLists: Audio[]) => {
 const handleAudioList = async (songs: Song[]) => {
     const idList = songs.map(one => one.id);
     await getSongsUrlList(idList);
-    getSongLyric(props.songId);
+    await getSongLyric(props.songId);
+    appendAudioList(songs, () => {
+        createInstance(audioLists.value);
+    }, songLyric.value);
+
+};
+
+// 添加到播放器列表
+type CreateInstanceFn = () => void;
+const appendAudioList = (songs: Song[], callback: CreateInstanceFn, lyric?: string) => {
     audioLists.value = songs.map(item => {
         const currentSong = urlList.value.find(one => item.id === one.id);
-        return new Audio(item.ar[0].name, item.name, currentSong.url, item.al.picUrl, songLyric.value);
+        return new Audio(item.ar[0].name, item.name, currentSong.url, item.al.picUrl, item.id === props.songId ? lyric : '');
     });
-};
+    callback && callback();
+}
 
 // 获取歌曲url
 const getSongsUrlList = async (idList: number[]) => {
@@ -189,30 +199,29 @@ const getSongLyric = async (id: number) => {
     const { code, lrc } = await getLyric(id);
     if (code === 200) {
         songLyric.value = lrc?.lyric;
-      console.log('songLyric.value',songLyric.value)
+        appendAudioList(audioList.value, () => {
+            createInstance(audioLists.value);
+        }, songLyric.value);
     }
 }
 
 // 监视songId 获取新歌词
 watch(() => props.songId, (newVal) => {
     if (newVal) {
-        getSongLyric(newVal);
-      console.log('newVal',newVal);
-      console.log('audioList.value',audioList.value);
         const index = audioList.value.findIndex(item => item.id === newVal);
-        instance.list.switch(index);
+        initialIndex.value = index;
+        getSongLyric(newVal);
     }
-})
+});
+
+
 watch(() => props.songIdListStr, async (newVal) => {
     if (newVal) {
         const { code, songs } = await getSongDetail(newVal);
         if (code === 200) {
             audioList.value = songs;
             initialIndex.value = audioList.value.findIndex(item => item.id === props.songId);
-            await handleAudioList(audioList.value);
-
-          console.log('audioList.value====>',audioList.value)
-            createInstance(audioLists.value);
+            handleAudioList(audioList.value);
         }
     }
 });
@@ -234,6 +243,7 @@ onBeforeUnmount(() => {
     :deep(.player) {
         left: 200px !important;
     }
+
     :deep(.aplayer-body) {
         @apply w-full
     }
@@ -241,6 +251,9 @@ onBeforeUnmount(() => {
     :deep(.aplayer-info) {
         display: block !important;
     }
-}
 
+    :deep(.aplayer-lrc-current) {
+        color: var(--el-color-primary-light-4) !important;
+    }
+}
 </style>

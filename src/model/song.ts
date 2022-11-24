@@ -20,7 +20,8 @@ export interface Song {
     al: {
         picUrl: string
     },
-    dt: number
+    dt: number,
+    lyric?: string
 }
 
 export interface SongUrl {
