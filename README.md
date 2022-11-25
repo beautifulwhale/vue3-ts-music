@@ -5,7 +5,7 @@
   ###  🐻 element plus
   ###  🐱 typescript
   ###  🐶 vite
-  ###  🐔 pinia
+  ###  🐷 pinia
   
   
   
