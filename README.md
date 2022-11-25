@@ -28,20 +28,17 @@
 ```
 yarn
 ```
-
 ### Compiles and hot-reloads for development
 
 ```
 yarn dev
 ```
-
 ### Compiles and minifies for production
 
 ```
 yarn build
 ```
-
-#### tip: 此项目使用yarn 未使用npm
+#### tip: 此项目使用yarn 未使用npm～  vite启动真快 typescript自动提示很棒...
 
 
 
