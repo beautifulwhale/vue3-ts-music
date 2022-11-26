@@ -5,7 +5,7 @@
             <div class="w-5 h-5 bg-purple-200 rounded-full cursor-pointer" @click="openLogin">
                 <img :src="circleUrl" />
             </div>
-            <span class="ml-2 cursor-pointer text-sm" @click="openLogin">点击登录</span>
+            <span class="ml-2 cursor-pointer text-sm text-skin-primary" @click="openLogin">点击登录</span>
         </template>
         <template v-else>
             <el-dropdown>
@@ -15,13 +15,27 @@
                 </div>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <span class="cursor-pointer" @click="handleLogout">退出登录</span>
+                        <span class="cursor-pointer text-skin-primary" @click="handleLogout">退出登录</span>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
-            <span class="ml-2 cursor-pointer text-sm">{{ nickName }}</span>
+            <span class="ml-2 cursor-pointer text-sm text-skin-primary">{{ nickName }}</span>
         </template>
-        <IconParkVue class="ml-3 cursor-pointer" :icon="Platte"></IconParkVue>
+        <el-dropdown>
+            <IconParkVue class="ml-3 cursor-pointer" :icon="Platte"></IconParkVue>
+            <template #dropdown>
+                <el-dropdown-menu>
+                    <el-dropdown-item class="p-1">
+                        <IconParkVue @click="changeTheme('dark')" class="cursor-pointer" :size="18" :icon="Moon">
+                        </IconParkVue>
+                    </el-dropdown-item>
+                    <el-dropdown-item class="p-1">
+                        <IconParkVue @click="changeTheme('light')" class="cursor-pointer" :size="18" :icon="Sun">
+                        </IconParkVue>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </template>
+        </el-dropdown>
         <IconParkVue class="ml-3 cursor-pointer" :icon="isFullscreen ? FullScreen : OffScreen"
             @click="handleScreenfull"></IconParkVue>
     </div>
@@ -29,7 +43,7 @@
 </template>
 
 <script setup lang='ts'>
-import { FullScreen, OffScreen, Platte } from '@icon-park/vue-next';
+import { DarkMode, FullScreen, Moon, OffScreen, Platte, Sun } from '@icon-park/vue-next';
 import screenfull from 'screenfull';
 import { onMounted, onUnmounted, ref, getCurrentInstance, inject, nextTick } from 'vue';
 import IconParkVue from '../../../common/IconPark.vue';
@@ -82,6 +96,17 @@ const handleLogout = async () => {
         nextTick(() => {
             reloadObj.reload();
         })
+    }
+}
+
+// 切换主题
+type Theme = 'dark' | 'light'
+const changeTheme = (type: Theme) => {
+    const appDom = document.querySelector("#app");
+    if (type === 'light') {
+        appDom?.removeAttribute('class');
+    } else {
+        appDom?.setAttribute('class', 'theme-dark');
     }
 }
 onMounted(() => {

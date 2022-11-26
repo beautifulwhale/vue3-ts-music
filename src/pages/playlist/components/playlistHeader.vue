@@ -2,14 +2,14 @@
     <div class="flex">
         <img class="w-44 h-44 flex-shrink-0 rounded-xl object-cover" :src="playlistInfo.coverImgUrl" alt="">
         <div class="pl-4 pt-2">
-            <div class="text-2xl font-bold">{{ playlistInfo.name }}</div>
+            <div class="text-2xl font-bold text-skin-primary">{{ playlistInfo.name }}</div>
             <div class="flex pt-2">
                 <div class="w-30 h-10 flex items-center rounded-full">
                     <el-avatar :size="30" :src="playlistInfo.creator.avatarUrl" />
-                    <span class="text-sm ml-2 text-gray-400">{{ playlistInfo.creator.nickname }}</span>
+                    <span class="text-sm ml-2 text-skin-primary">{{ playlistInfo.creator.nickname }}</span>
                 </div>
                 <div class="pl-5 flex items-center">
-                    <div class="text-sm ml-2 text-gray-400" v-for="item in playlistInfo.tags" :key="item">
+                    <div class="text-sm ml-2 text-skin-primary" v-for="item in playlistInfo.tags" :key="item">
                         #{{ item }}
                     </div>
                 </div>

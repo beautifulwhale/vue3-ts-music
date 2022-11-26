@@ -1,0 +1,24 @@
+@layer base {
+    :root {
+        --color-base: 255, 255, 255;
+        --color-text-base: 0, 0, 0;
+        --color-off-base: 75, 85, 99;
+        --color-text-muted: 107, 114, 128;
+        --color-text-muted-hover: 107, 114, 128;
+        --color-primary: 226, 232, 240;
+        --color-secondary: 100, 116, 139;
+    }
+
+
+    .theme-dark {
+        --color-base: 17, 24, 39;
+        --color-text-base: 255, 255, 255;
+        --color-off-base: 31, 41, 55;
+        --color-text-muted: 229, 231, 235;
+        --color-muted-offset: 209, 213, 219;
+        --color-primary: 147, 197, 253;
+        --color-secondary: 115, 115, 115;
+        --color-icon-base: 255, 255, 255;
+        --color-menu-hover: 255, 192, 203;
+    }
+}

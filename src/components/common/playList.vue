@@ -3,12 +3,12 @@
         <el-image :src="picUrl" :alt="name" class="w-full bg-gray-50 object-cover"></el-image>
         <div class="mask flex justify-center items-center">
             <IconPark :icon="PlayOne" theme="filled"
-                class="text-white play-icon opacity-0 transition-opacity hover:text-teal-400" :size="50"
+                class=" play-icon opacity-0 transition-opacity hover:text-teal-400" :size="50"
                 @click="onPlay" />
         </div>
         <div class="play-count">
             <IconPark :icon="Play" class="mr-1"></IconPark>
-            <text>{{ useNumberFormat(playCount || 0) }}</text>
+            <text class="text-skin-primary">{{ useNumberFormat(playCount || 0) }}</text>
         </div>
     </div>
 </template>
@@ -39,11 +39,11 @@ const handlePlaylistDetail = (id: number) => {
     // @apply hover: -translate-y-1;
 
     .mask {
-        @apply absolute inset-0 bg-black bg-opacity-0 transition-all duration-500;
+        @apply absolute inset-0 bg-slate-300  bg-opacity-0 transition-all duration-500;
     }
 
     .play-count {
-        @apply absolute bottom-4 right-1 text-white text-xs bg-black bg-opacity-80 pl-2 pr-2 rounded-full pt-0.5 pb-0.5 flex items-center transition-all scale-90;
+        @apply absolute bottom-4 right-1  text-xs bg-opacity-80 pl-2 pr-2 rounded-full pt-0.5 pb-0.5 flex items-center transition-all scale-90;
     }
 
     &:hover {

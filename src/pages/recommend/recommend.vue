@@ -1,6 +1,6 @@
 <template>
   <div class="p-2">
-    <h1 class="font-bold pb-4 text-3xl">推荐</h1>
+    <h1 class="font-bold pb-4 text-3xl text-skin-primary">推荐</h1>
     <BannerVue :bannerList="bannerList"></BannerVue>
     <recommendPlaylistVue :playLists="myPlayList"></recommendPlaylistVue>
     <newSongs :newSongList="newSongList"></newSongs>

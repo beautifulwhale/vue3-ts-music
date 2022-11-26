@@ -1,5 +1,5 @@
 <template>
-    <div class="common-layout">
+    <div class="common-layout bg-skin-bg">
         <el-container>
             <el-aside width="200px">
                 <el-scrollbar>
@@ -30,7 +30,7 @@ import footerVue from '../../components/layout/footer/footer.vue';
 </script>
 <style lang='scss' scoped>
 .common-layout {
-    @apply w-full h-screen
+    @apply w-full h-screen;
 }
 .containers {
     height: calc(100vh - 90px);

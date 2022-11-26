@@ -1,8 +1,10 @@
 @import './variables.scss';
+@import './theme.scss';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
     --el-color-primary: #34d399 !important;
@@ -15,5 +17,4 @@
     --el-color-primary-light-7: #a7f3d0 !important;
     --el-color-primary-light-8: #d1fae5 !important;
     --el-color-primary-light-9: #ecfdf5 !important;
-    --el-text-color-primary: text-slate-700;
 }

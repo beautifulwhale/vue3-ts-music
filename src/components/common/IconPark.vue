@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-skin-icon">
         <component :is="icon" :size="size" :spin="spin" :fill="fill" :strokeLinecap="strokeLinecap"
             :strokeLinejoin="strokeLinejoin" :strokeWidth="strokeWidth"></component>
     </div>

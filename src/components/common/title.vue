@@ -1,5 +1,5 @@
 <template>
-  <div class="text-xl py-3 mt-2 flex items-center">
+  <div class="text-xl py-3 mt-2 flex items-center text-skin-primary">
     <div>
       {{title}}
     </div>

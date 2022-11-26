@@ -25,7 +25,12 @@
                                     {{ row.ar[0].name }}
                                 </span>
                                 <span v-else v-for="(item) in row.ar" :key="item.id">
-                                    {{ item.name }}
+                                    <span v-if="item.name === row.ar[row.ar.length - 1].name">
+                                        {{ item.name }}
+                                    </span>
+                                    <span v-else>
+                                        {{ item.name }}、
+                                    </span>
                                 </span>
                             </template>
                         </el-table-column>
@@ -39,7 +44,9 @@
                     </el-table>
                 </div>
             </el-tab-pane>
-            <el-tab-pane label="评论" name="comments">Comments...</el-tab-pane>
+            <el-tab-pane label="评论" name="comments">
+                <span class="text-skin-primary">Comments...</span>
+            </el-tab-pane>
         </el-tabs>
     </div>
 </template>
@@ -64,8 +71,8 @@ const songLabel = computed(() => {
     return `歌曲(${props.songList.length})`
 });
 
-const handleChangeSong = (row:any)=> {
-  mitter.emit('playSong', { id: row.id, songIdList: props.trackIdList });
+const handleChangeSong = (row: any) => {
+    mitter.emit('playSong', { id: row.id, songIdList: props.trackIdList });
 }
 
 const playSong = (row: any) => {
@@ -75,12 +82,28 @@ const playSong = (row: any) => {
 <style lang='scss' scoped>
 .songs-table {
     :deep(tbody tr:hover>td) {
-        background-color: rgb(230, 228, 228);
+        background-color: rgb(139, 139, 139);
         cursor: pointer;
     }
 
     :deep(.el-table td:hover>.cell) {
         color: var(--el-color-primary-light-6);
+    }
+
+    :deep(.el-table tr) {
+        @apply text-skin-primary
+    }
+
+    :deep(.el-table th) {
+        @apply bg-skin-bg
+    }
+
+    :deep(.el-table td) {
+        @apply bg-skin-bg
+    }
+
+    :deep(.el-table td.el-table__cell) {
+        border: 0;
     }
 }
 
@@ -96,5 +119,9 @@ const playSong = (row: any) => {
             color: rgb(171, 247, 171);
         }
     }
+}
+
+:deep(.el-tabs__item) {
+    @apply text-skin-primary
 }
 </style>

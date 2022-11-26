@@ -1,10 +1,10 @@
 <template>
-    <div class="mt-3">
+    <div class="mt-3 text-skin-primary">
         <div v-if="isShowCollaspe">
             <div class="text-sm">
                 <span v-if="!isCollapse">{{ description.substring(0, endLength) }}...</span>
                 <span v-else>{{ description }}</span>
-                <span @click="handleCollapse" class="ml-2 text-sm cursor-pointer text-gray-400">{{ !isCollapse ? '展开' :
+                <span @click="handleCollapse" class="ml-2 text-sm cursor-pointer text-skin-secondary">{{ !isCollapse ? '展开' :
                         '收起'
                 }}</span>
             </div>

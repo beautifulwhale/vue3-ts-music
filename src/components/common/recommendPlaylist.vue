@@ -3,7 +3,7 @@
     <div class="playlist-layout">
         <div v-for="item in playLists.sampleSize(30)" :key="item.id">
             <playList :id="item.id" :name="item.name" :picUrl="item.picUrl" :playCount="item.playCount"></playList>
-            <div class="mt-2 text-xs text-main truncate">{{ item.name }}</div>
+            <div class="mt-2 text-xs text-main truncate text-skin-primary">{{ item.name }}</div>
         </div>
     </div>
 </template>
